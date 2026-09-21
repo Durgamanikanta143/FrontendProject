@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Login.css";
+import { loginUser } from "../services/authService";
 
 function Login() {
 
@@ -12,8 +13,7 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
 
     e.preventDefault();
 
@@ -46,16 +46,30 @@ function Login() {
         return;
     }
 
-    setLoading(true);
+    try {
 
-    setTimeout(() => {
+        setLoading(true);
+
+        const result = await loginUser(email, password);
+
+        console.log("Login response:", result);
+
+        alert(result.message);
+
+    }
+    catch (error) {
+
+        console.error("Login failed:", error);
+
+        alert("Unable to login. Please try again.");
+
+    }
+    finally {
+
         setLoading(false);
 
-        alert("Validation successful!");
-
-    }, 1000);
+    }
 };
-
     return (
         <div className="login-page">
 
