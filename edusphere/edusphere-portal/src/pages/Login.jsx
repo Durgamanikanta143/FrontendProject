@@ -18,6 +18,7 @@ const handleSubmit = async (e) => {
     e.preventDefault();
 
     setEmailError("");
+    
     setPasswordError("");
 
     let isValid = true;
